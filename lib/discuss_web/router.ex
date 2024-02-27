@@ -17,10 +17,10 @@ defmodule DiscussWeb.Router do
   scope "/", DiscussWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    get "/redirect_test", PageController, :redirect_test
+    # get "/", PageController, :index
+    # get "/redirect_test", PageController, :redirect_test
 
-    resources "/topics", TopicController
+    resources "/", TopicController
   end
 
   # Other scopes may use custom stacks.

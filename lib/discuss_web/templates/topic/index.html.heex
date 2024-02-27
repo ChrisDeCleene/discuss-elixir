@@ -1,26 +1,27 @@
-<h1>Listing Topics</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for topic <- @topics do %>
-    <tr>
-      <td><%= topic.title %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.topic_path(@conn, :show, topic) %></span>
-        <span><%= link "Edit", to: Routes.topic_path(@conn, :edit, topic) %></span>
-        <span><%= link "Delete", to: Routes.topic_path(@conn, :delete, topic), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New Topic", to: Routes.topic_path(@conn, :new) %></span>
+<div class="flex w-full justify-between items-center">
+  <h1 class="text-2xl py-4">Topics</h1>
+  <%= button "New Topic", method: :get, to: Routes.topic_path(@conn, :new), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4" %>
+</div>
+<div class="flex flex-wrap gap-4 w-full justify-evenly">
+  <%= for topic <- @topics do %>
+    <div class="w-[400px] max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex justify-end px-4 pt-4">
+          <button id="dropdownButton" data-dropdown-toggle="dropdown" class="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+              <span class="sr-only">Open dropdown</span>
+              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                  <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+              </svg>
+          </button>
+      </div>
+      <div class="flex flex-col items-center pb-10">
+          <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><%= topic.title %></h5>
+          <span class="text-sm text-gray-500 dark:text-gray-400">Visual Designer</span>
+          <div class="flex mt-4 md:mt-6 gap-2">
+              <%= link "View", to: Routes.topic_path(@conn, :show, topic), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+              <%= link "Edit", to: Routes.topic_path(@conn, :edit, topic), class: "text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"  %>
+              <%= link "Delete", method: :delete, to: Routes.topic_path(@conn, :delete, topic), class: "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" %>
+          </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,21 @@
+version: "3"
+services:
+  postgres:
+    restart: unless-stopped
+    networks:
+      - default
+    container_name: "discuss-postgres"
+    image: "postgres:latest"
+    volumes:
+      - "pgdata:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "discuss_dev"
+      POSTGRES_PASSWORD: "mysecretpassword"
+      POSTGRES_USER: "christopherdecleene"
+volumes:
+  pgdata:
+networks:
+  default:
+    driver: "bridge"

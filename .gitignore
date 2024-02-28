@@ -29,3 +29,6 @@ discuss-*.tar
 npm-debug.log
 /assets/node_modules/
 
+/config/prod.secret.exs
+
+.env

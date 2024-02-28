@@ -1,6 +1,1 @@
-<h1>Edit Topic</h1>
-
-<%= render "form.html", Map.put(assigns, :action, Routes.topic_path(@conn,
-:update, @topic)) %>
-
-<%= button("Back", to: Routes.topic_path(@conn, :index), class: "text-red") %>
+<%= render "form.html", Map.merge(assigns, %{action: Routes.topic_path(@conn, :update, @topic), title: "Edit Topic", secondary_to: Routes.topic_path(@conn, :show, @topic), secondary_title: "Back"}) %>

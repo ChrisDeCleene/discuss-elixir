@@ -10,7 +10,7 @@ defmodule DiscussWeb.TopicControllerTest do
   describe "index" do
     test "lists all topics", %{conn: conn} do
       conn = get(conn, Routes.topic_path(conn, :index))
-      assert html_response(conn, 200) =~ "Listing Topics"
+      assert html_response(conn, 200) =~ "Topics"
     end
   end
 

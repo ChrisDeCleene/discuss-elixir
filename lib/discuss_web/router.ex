@@ -2,12 +2,14 @@ defmodule DiscussWeb.Router do
   use DiscussWeb, :router
 
   pipeline :browser do
+    plug Ueberauth
     plug :accepts, ["html", "text"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {DiscussWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug DiscussWeb.Plugs.SetUser
   end
 
   pipeline :api do
@@ -21,6 +23,14 @@ defmodule DiscussWeb.Router do
     # get "/redirect_test", PageController, :redirect_test
 
     resources "/", TopicController
+  end
+
+  scope "/auth", DiscussWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+    put "/signout", AuthController, :signout
   end
 
   # Other scopes may use custom stacks.

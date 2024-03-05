@@ -1,6 +1,8 @@
 <div class="flex w-full justify-between items-center">
   <h1 class="text-2xl py-4">Topics</h1>
-  <%= button "New Topic", method: :get, to: Routes.topic_path(@conn, :new), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4" %>
+  <%= if @conn.assigns.user do %>
+    <%= button "New Topic", method: :get, to: Routes.topic_path(@conn, :new), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4" %>
+  <% end %>
 </div>
 <div class="flex flex-wrap gap-4 w-full justify-evenly">
   <%= for topic <- @topics do %>
@@ -10,8 +12,10 @@
           <%!-- <span class="text-sm text-gray-500 dark:text-gray-400">Created At: </span> --%>
           <div class="flex mt-4 md:mt-6 gap-2">
               <%= link "View", to: Routes.topic_path(@conn, :show, topic), class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
-              <%= link "Edit", to: Routes.topic_path(@conn, :edit, topic), class: "text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"  %>
-              <%= link "Delete", method: :delete, to: Routes.topic_path(@conn, :delete, topic), class: "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" %>
+              <%= if @conn.assigns.user && @conn.assigns.user.id == topic.user_id do %>
+                <%= link "Edit", to: Routes.topic_path(@conn, :edit, topic), class: "text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"  %>
+                <%= link "Delete", method: :delete, to: Routes.topic_path(@conn, :delete, topic), class: "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" %>
+              <% end %>
           </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ defmodule Discuss.Auth do
 
 
   def insert_or_update_user(changeset) do
-    IO.inspect changeset
     case Repo.get_by(User, email: changeset.changes.email) do
       nil ->
         Repo.insert(changeset)

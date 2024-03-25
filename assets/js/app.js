@@ -18,6 +18,9 @@
 //     import "some-package"
 //
 
+// User socket from assets/js/user_socket.js and `mix phx.gen.socket User` command.
+import "./user_socket.js";
+
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html";
 // Establish Phoenix Socket and LiveView configuration.

@@ -10,6 +10,26 @@ defmodule DiscussWeb.Endpoint do
     signing_salt: "A30BUfJD"
   ]
 
+
+  #########
+  # NOTES FOLLOWING: `mix phx.gen.socket User`
+  #########
+  # Add the socket handler to your `lib/discuss_web/endpoint.ex`, for example:
+
+  socket "/socket", DiscussWeb.UserSocket,
+    websocket: true,
+    longpoll: false
+
+  # For the front-end integration, you need to import the `user_socket.js`
+  # in your `assets/js/app.js` file:
+
+  #     import "./user_socket.js"
+
+  #########
+  # END OF NOTES
+  #########
+
+
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.

@@ -9,12 +9,13 @@ defmodule Discuss.Auth.User do
     field :token, :string
     field :image, :string
     has_many :topics, Discuss.Discussions.Topic
+    has_many :comments, Discuss.Discussions.Comment
 
     timestamps()
   end
 
   @doc false
-  def changeset(user, attrs) do
+  def changeset(user, attrs \\ %{}) do
     user
     |> cast(attrs, [:email, :name, :provider, :token, :image])
     |> validate_required([:email, :name, :provider, :token, :image])

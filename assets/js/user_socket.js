@@ -64,6 +64,7 @@ const createSocket = (topicId) => {
   channel
     .join()
     .receive("ok", (resp) => {
+      console.log("Joined successfully", resp);
       renderComments(resp.comments);
     })
     .receive("error", (resp) => {
@@ -94,8 +95,12 @@ function renderComment(event) {
 
 function commentTemplate(comment) {
   return `
-    <li class="bg-white text-black dark:bg-gray-600 dark:text-white mx-10 p-4 shadow rounded-lg">
+    <li class="bg-white text-black dark:bg-gray-600 dark:text-white mx-10 p-4 shadow rounded-lg flex justify-between items-center">
       <p>${comment.content}</p>
+      <div class="flex items-center gap-4">
+        <p>${comment.user.name || "Anonymous"}</p>
+        <img src="${comment.user.image}" class="w-10 h-10 rounded-full" />
+      </div>
     </li>
     `;
 }

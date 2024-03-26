@@ -34,7 +34,7 @@ def connect(%{"token" => token}, socket, _connect_info) do
     {:ok, user_id} ->
       {:ok, assign(socket, :user_id, user_id)}
 
-    {:error, reason} ->
+    {:error, _reason} ->
       :error
   end
 end

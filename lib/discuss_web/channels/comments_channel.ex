@@ -9,18 +9,19 @@ defmodule DiscussWeb.CommentsChannel do
 
   def join("comments:" <> topic_id, _payload, socket) do
     topic_id = String.to_integer(topic_id)
+
     topic = Topic
       |> Repo.get(topic_id)
-      |> Repo.preload(:comments)
+      |> Repo.preload(comments: [:user])
 
     {:ok, %{comments: topic.comments}, assign(socket, topic: topic)}
   end
 
   def handle_in(_event, %{"content" => content}, socket) do
-    topic = socket.assigns.topic
+    %{topic: topic, user_id: user_id} = socket.assigns
 
     changeset = topic
-      |> Ecto.build_assoc(:comments)
+      |> Ecto.build_assoc(:comments, user_id: user_id)
       |> Comment.changeset(%{content: content})
 
     case Discuss.Repo.insert(changeset) do
